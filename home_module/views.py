@@ -2,11 +2,7 @@ from django.shortcuts import render
 import requests
 from django.http import JsonResponse
 import datetime
-
 from home_module.forms import SearchForm
-
-
-# Create your views here.
 
 
 def weather(request, city):
@@ -33,7 +29,12 @@ def index_page(request):
         temp = int(data['main']['temp'])
         city_name = data['name']
         wind_speed = data['wind']['speed']
+        wind_degree = data['wind']['deg']
+        weather_status = data['weather'][0]['main']
+        rain = '0'
 
+        if 'rain' in data:
+            rain = data['rain']['1h']
 
         context = {
             'search_form': search_form,
@@ -43,6 +44,9 @@ def index_page(request):
             'week_day': week_day,
             'month_name': month_name,
             'month_day': month_day,
+            'rain': rain,
+            'wind_degree': wind_degree,
+            'weather_status': weather_status,
         }
         return render(request, 'home_module/index.html', context)
     else:
