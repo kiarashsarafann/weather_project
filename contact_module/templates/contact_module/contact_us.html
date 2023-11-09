@@ -1,0 +1,66 @@
+{% extends 'shared/_layout.html' %}
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+    <div class="site-content">
+        <main class="main-content">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'index_page' %}">Home</a>
+                    <span>Contact</span>
+                </div>
+            </div>
+
+            <div class="fullwidth-block">
+                <div class="container">
+                    <div class="col-md-5">
+                        <div class="contact-details">
+
+                            <div class="contact-info">
+                                <address>
+                                    <img src="images/icon-marker.png" alt="">
+                                    <p>Company Name INC. <br>
+                                        2803 Avenue Street, Los Angeles</p>
+                                </address>
+
+                                <a href="#"><img src="images/icon-phone.png" alt="">+1 800 314 235</a>
+                                <a href="#"><img src="images/icon-envelope.png" alt="">contact@companyname.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-1">
+                        <h2 class="section-title">Contact us</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur inventore
+                            ducimus, facilis, numquam id soluta omnis eius recusandae nesciunt vero repellat harum cum.
+                            Nisi facilis odit hic, ipsum sed!</p>
+                        <form action="#" method="post" class="contact-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form.name }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.email }}
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form.company }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.website }}
+                                </div>
+                            </div>
+                            {{ form.message }}
+                            <div class="text-right">
+                                <input type="submit" placeholder="Send message">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </main> <!-- .main-content -->
+{% endblock %}
