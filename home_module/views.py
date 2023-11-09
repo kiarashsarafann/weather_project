@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 import requests
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 import datetime
 from home_module.forms import SearchForm
 
@@ -21,33 +21,40 @@ def index_page(request):
         url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
         data = requests.get(url).json()
 
-        date_now = datetime.datetime.now()
-        week_day = date_now.strftime('%A')
-        month_name = date_now.strftime('%b')
-        month_day = date_now.strftime('%d')
+        try:
+            if data['cod'] == '404':
+                return HttpResponse('<h1>city is not found</h1> {"status": "notfound"}')
 
-        temp = int(data['main']['temp'])
-        city_name = data['name']
-        wind_speed = data['wind']['speed']
-        wind_degree = data['wind']['deg']
-        weather_status = data['weather'][0]['main']
-        rain = '0'
+            else:
+                date_now = datetime.datetime.now()
+                week_day = date_now.strftime('%A')
+                month_name = date_now.strftime('%b')
+                month_day = date_now.strftime('%d')
 
-        if 'rain' in data:
-            rain = data['rain']['1h']
+                temp = int(data['main']['temp'])
+                city_name = data['name']
+                wind_speed = data['wind']['speed']
+                wind_degree = data['wind']['deg']
+                weather_status = data['weather'][0]['main']
+                rain = '0'
 
-        context = {
-            'search_form': search_form,
-            'city_name': city_name,
-            'temp': temp,
-            'wind_speed': wind_speed,
-            'week_day': week_day,
-            'month_name': month_name,
-            'month_day': month_day,
-            'rain': rain,
-            'wind_degree': wind_degree,
-            'weather_status': weather_status,
-        }
-        return render(request, 'home_module/index.html', context)
+                if 'rain' in data:
+                    rain = data['rain']['1h']
+
+                context = {
+                    'search_form': search_form,
+                    'city_name': city_name,
+                    'temp': temp,
+                    'wind_speed': wind_speed,
+                    'week_day': week_day,
+                    'month_name': month_name,
+                    'month_day': month_day,
+                    'rain': rain,
+                    'wind_degree': wind_degree,
+                    'weather_status': weather_status,
+                }
+                return render(request, 'home_module/index.html', context)
+        except:
+            return HttpResponse('{"status": "error"}')
     else:
         return render(request, 'home_module/index.html', {'search_form': search_form})

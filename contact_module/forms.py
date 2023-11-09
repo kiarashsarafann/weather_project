@@ -10,7 +10,7 @@ class ContactUsModelForm(forms.ModelForm):
             'name': forms.TextInput(attrs={
                 'placeholder': 'Your name...'
             }),
-            'email': forms.TextInput(attrs={
+            'email': forms.EmailInput(attrs={
                 'placeholder': 'Email Address...'
             }),
             'company': forms.TextInput(attrs={

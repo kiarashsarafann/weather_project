@@ -3,5 +3,4 @@ from django.urls import path
 
 urlpatterns = [
     path('', index_page, name='index_page'),
-    path('weather/<str:city>/', weather),
 ]
