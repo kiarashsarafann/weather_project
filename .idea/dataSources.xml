@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="db" uuid="409d653d-15c3-4937-b3a6-faef8da2b81f">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>4b9782e2-47ab-41ce-b968-5f636df17b71</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Code\weather_project\db.sqlite3</jdbc-url>
